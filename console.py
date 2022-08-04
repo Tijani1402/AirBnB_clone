@@ -114,7 +114,7 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             key = arg[0] + '.' + arg[1]
-            if key in storage.all().keys:
+            if key in storage.all().keys():
                 if len(arg) > 2:
                     if len(arg) == 3:
                         print('** value missing **')
