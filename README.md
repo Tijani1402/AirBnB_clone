@@ -13,7 +13,7 @@ It prints a prompt **(hbnb)** and waits for the user for input.
 ## Execution
 Your shell should work like this in the interactive mode
 
-```bash
+```
 $ ./console.py
 (hbnb) help
 
@@ -27,7 +27,7 @@ EOF  help  quit
 $
 ```
 But also in non-interactive mode: (like the Shell project in C)
-```bash
+```
 $ echo "help" | ./console.py
 (hbnb)
 
@@ -48,3 +48,4 @@ EOF  help  quit
 (hbnb)
 $
 ```
+All tests should also pass in non-interactive mode: $ echo "python3 -m unittest discover tests" | bash
