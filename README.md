@@ -77,5 +77,5 @@ This allows the storage to be reloaded automatically at initialization, which re
 
 ## Tests
 
-All the code is tested with the **unittest** module.
+All the code is tested with the [unittest module.](https://docs.python.org/3/library/unittest.html)
 The test for the classes are in the [test_models](./tests/test_models/) folder.
