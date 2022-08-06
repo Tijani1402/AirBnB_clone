@@ -108,34 +108,40 @@ class HBNBCommand(cmd.Cmd):
         else:
             print([str(a) for b, a in storage.all().items() if arg in b])
 
-    def do_update(self, arg):
+    def do_update(self, line):
         """ Method to update JSON file"""
 
-        arg = arg.split()
-        if len(arg) == 0:
+        a = None
+        found = False
+        command_list = line.split(' ')
+        if line == '':
             print('** class name missing **')
-            return
-        elif arg[0] not in self.classes:
+        elif command_list[0] not in self.class_list:
             print("** class doesn't exist **")
-            return
-        elif len(arg) == 1:
-            print('** instance id missing **')
-            return
+        elif len(command_list) == 1:
+            print("** instance id missing **")
+        elif len(command_list) == 2:
+            print('** attribte name missing **')
+        elif len(command_list) == 3:
+            print("** value mising **")
         else:
-            key = arg[0] + '.' + arg[1]
-            if key in storage.all().keys():
-                if len(arg) > 2:
-                    if len(arg) == 3:
-                        print('** value missing **')
-                    else:
-                        setattr(
-                            storage.all()[key],
-                            arg[2],
-                            arg[3][1:-1])
-                        storage.all()[key].save()
-                else:
-                    print('** attribute name missing **')
-
+            all_classes = storage.all()
+            for inst in all_classes.values():
+                if command_list[1] == inst.id:
+                    a = inst
+                    found = True
+                if found:
+                    i = len(command_list)
+                    attr = command_list[3]
+                    if i > 4:
+                        for j in range(1, i - 3):
+                            attr = attr + ' ' + command_list[3+j]
+                            attr = attr.strip("'")
+                            attr = attr.strip('"')
+                    setattr(a, command_list[2], attr)
+                    storage.save()
+            if not a:
+                print('** no instance found **')
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
