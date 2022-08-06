@@ -109,10 +109,16 @@ class HBNBCommand(cmd.Cmd):
             print([str(a) for b, a in storage.all().items() if arg in b])
 
     def default(self, line):
+        """default behaviour"""
+
         cmd_list = line.split('.')
         if cmd_list[0] in self.classes:
             if cmd_list[1] == 'all()':
                 self.do_all(cmd_list[0])
+            elif 'show' in cmd_list[1]:
+                cmd = cmd_list[1].split('(')
+                if cmd[0] == 'show':
+                    self.do_show(cmd_list[0] + ' ' + cmd[1].strip(')'))
         else:
             print(f"Unknown syntax: {line}")
 
