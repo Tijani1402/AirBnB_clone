@@ -17,7 +17,7 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """ General Class for HBNBCommand """
 
-    prompt = '(hbnb)'
+    prompt = '(hbnb) '
     classes = {'BaseModel': BaseModel, 'User': User, 'City': City,
                'Place': Place, 'Amenity': Amenity, 'Review': Review,
                'State': State}
@@ -107,6 +107,14 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             print([str(a) for b, a in storage.all().items() if arg in b])
+
+    def default(self, line):
+        cmd_list = line.split('.')
+        if cmd_list[0] in self.classes:
+            if cmd_list[1] == 'all()':
+                self.do_all(cmd_list[0])
+        else:
+            print(f"Unknown syntax: {line}")
 
     def do_update(self, arg):
         """ Method to update JSON file"""
