@@ -119,6 +119,10 @@ class HBNBCommand(cmd.Cmd):
                 cmd = cmd_list[1].split('(')
                 if cmd[0] == 'show':
                     self.do_show(cmd_list[0] + ' ' + cmd[1].strip(')'))
+            elif 'destroy' in cmd_list:
+                cmd = cmd_list[1].split('(')
+                if cmd[0] == 'destroy':
+                    self.do_destroy(cmd_list[0] + ' ' + cmd[1].strip(')'))
         else:
             print(f"Unknown syntax: {line}")
 
