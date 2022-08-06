@@ -16,6 +16,7 @@ from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     """ General Class for HBNBCommand """
+
     prompt = '(hbnb) '
     classes = {'BaseModel': BaseModel, 'User': User, 'City': City,
                'Place': Place, 'Amenity': Amenity, 'Review': Review,
@@ -23,19 +24,23 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
+
         exit()
 
     def do_EOF(self, arg):
         """ Exit method for EOF """
+
         print('')
         exit()
 
     def emptyline(self):
         """ Method to pass when emptyline entered """
+
         pass
 
     def do_create(self, arg):
         """ Create a new instance """
+
         if len(arg) == 0:
             print('** class name missing **')
             return
@@ -51,6 +56,7 @@ class HBNBCommand(cmd.Cmd):
                     print("** class doesn't exist **")
 
     def do_show(self, arg):
+
         """ Method to print instance """
         if len(arg) == 0:
             print('** class name missing **')
@@ -70,6 +76,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """ Method to delete instance with class and id """
+
         if len(arg) == 0:
             print("** class name missing **")
             return
@@ -93,6 +100,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """ Method to print all instances """
+
         if len(arg) == 0:
             print([str(a) for a in storage.all().values()])
         elif arg not in self.classes:
@@ -102,6 +110,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """ Method to update JSON file"""
+
         arg = arg.split()
         if len(arg) == 0:
             print('** class name missing **')
