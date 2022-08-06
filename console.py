@@ -22,7 +22,7 @@ class HBNBCommand(cmd.Cmd):
                'State': State}
 
     def do_quit(self, arg):
-        """ Exit method for quit typing """
+        """Quit command to exit the program"""
         exit()
 
     def do_EOF(self, arg):
