@@ -20,7 +20,7 @@ class Test_Console(unittest.TestCase):
         """Creates HBNBCommand"""
         return HBNBCommand(stdin=self.mock_stdin, stdout=self.mock_stdout)
 
-    #def test_quit(self):
-        #"""Tests the quit command"""
-        #xit = self.create()
-        #self.assertTrue(xit.onecmd("quit"))
+    # def test_quit(self):
+        # """Tests the quit command"""
+        # xit = self.create()
+        # self.assertTrue(xit.onecmd("quit"))
