@@ -128,6 +128,19 @@ class HBNBCommand(cmd.Cmd):
                     if cmd_list[0] == attr.__class__.__name__:
                         count += 1
                 print(count)
+            elif 'update' in cmd_list[1]:
+                _list = line.strip(',').split(' ')
+                class_name = str(line.split('.')[0])
+                class_id = _list[0].split('(')[1].split(',')[0].strip('"')
+                class_attr = _list[1].strip(',').strip('"')
+                class_value = _list[2].strip('"').strip(',').strip(')')
+                class_value = class_value.strip('"')
+                print(class_name, class_id, class_attr, class_value)
+
+                self.do_update(class_name + ' ' +
+                               class_id +
+                               ' ' + class_attr +
+                               ' ' + class_value)
         else:
             print(f"Unknown syntax: {line}")
 
