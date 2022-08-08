@@ -7,4 +7,3 @@ class Amenity(BaseModel):
     """State class inherits from BaseModel"""
 
     name = ''
-    

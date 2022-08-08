@@ -16,26 +16,29 @@ from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     """ General Class for HBNBCommand """
+
     prompt = '(hbnb) '
     classes = {'BaseModel': BaseModel, 'User': User, 'City': City,
                'Place': Place, 'Amenity': Amenity, 'Review': Review,
                'State': State}
 
     def do_quit(self, arg):
-        """ Exit method for quit typing """
+        """Quit command to exit the program"""
+
         exit()
 
     def do_EOF(self, arg):
         """ Exit method for EOF """
-        print('')
         exit()
 
     def emptyline(self):
         """ Method to pass when emptyline entered """
+
         pass
 
     def do_create(self, arg):
         """ Create a new instance """
+
         if len(arg) == 0:
             print('** class name missing **')
             return
@@ -51,6 +54,7 @@ class HBNBCommand(cmd.Cmd):
                     print("** class doesn't exist **")
 
     def do_show(self, arg):
+
         """ Method to print instance """
         if len(arg) == 0:
             print('** class name missing **')
@@ -70,6 +74,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """ Method to delete instance with class and id """
+
         if len(arg) == 0:
             print("** class name missing **")
             return
@@ -93,6 +98,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """ Method to print all instances """
+
         if len(arg) == 0:
             print([str(a) for a in storage.all().values()])
         elif arg not in self.classes:
@@ -100,8 +106,45 @@ class HBNBCommand(cmd.Cmd):
         else:
             print([str(a) for b, a in storage.all().items() if arg in b])
 
+    def default(self, line):
+        """default behaviour"""
+
+        cmd_list = line.split('.')
+        if cmd_list[0] in self.classes:
+            if cmd_list[1] == 'all()':
+                self.do_all(cmd_list[0])
+            elif 'show' in cmd_list[1]:
+                cmd = cmd_list[1].split('(')
+                if cmd[0] == 'show':
+                    self.do_show(cmd_list[0] + ' ' + cmd[1].strip(')'))
+            elif 'destroy' in cmd_list[1]:
+                cmd = cmd_list[1].split('(')
+                self.do_destroy(cmd_list[0] + ' ' + cmd[1].strip(')'))
+            elif cmd_list[1].strip('()') == 'count':
+                count = 0
+                for attr in storage.all().values():
+                    if cmd_list[0] == attr.__class__.__name__:
+                        count += 1
+                print(count)
+            elif 'update' in cmd_list[1]:
+                _list = line.strip(',').split(' ')
+                class_name = str(line.split('.')[0])
+                class_id = _list[0].split('(')[1].split(',')[0].strip('"')
+                class_attr = _list[1].strip(',').strip('"')
+                class_value = _list[2].strip('"').strip(',').strip(')')
+                class_value = class_value.strip('"')
+                print(class_name, class_id, class_attr, class_value)
+
+                self.do_update(class_name + ' ' +
+                               class_id +
+                               ' ' + class_attr +
+                               ' ' + class_value)
+        else:
+            print(f"Unknown syntax: {line}")
+
     def do_update(self, arg):
         """ Method to update JSON file"""
+
         arg = arg.split()
         if len(arg) == 0:
             print('** class name missing **')
@@ -114,7 +157,7 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             key = arg[0] + '.' + arg[1]
-            if key in storage.all().keys():
+            if key in storage.all():
                 if len(arg) > 2:
                     if len(arg) == 3:
                         print('** value missing **')
@@ -126,6 +169,8 @@ class HBNBCommand(cmd.Cmd):
                         storage.all()[key].save()
                 else:
                     print('** attribute name missing **')
+            else:
+                print('** no instance found **')
 
 
 if __name__ == '__main__':
