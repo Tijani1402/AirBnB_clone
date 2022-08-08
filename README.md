@@ -79,5 +79,6 @@ All the code is tested with the [unittest module.](https://docs.python.org/3/lib
 The test for the classes are in the [test_models](./tests/test_models/) folder.
 
 ## Authors
-Ekene Ezema [twitter @ekenestan07](www.twitter.com/ekenestan07/)
+Ekene Ezema [twitter @ekenestan07](https://twitter.com/ekenestan07)
+
 Ridwanlahi Tijani
