@@ -1,0 +1,1 @@
+Web static component of the AirBnB_clone
